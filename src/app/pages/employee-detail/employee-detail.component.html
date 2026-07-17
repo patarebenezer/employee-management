@@ -1,0 +1,46 @@
+<div class="page">
+  @if (employee) {
+    <div class="detail-card">
+      <div class="detail-card__header">
+        <div class="avatar">{{ employee.firstName.charAt(0) }}{{ employee.lastName.charAt(0) }}</div>
+        <div>
+          <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+          <p>&#64;{{ employee.username }}</p>
+        </div>
+        <span class="status-badge" [attr.data-status]="employee.status">{{ employee.status }}</span>
+      </div>
+
+      <dl class="detail-grid">
+        <div class="detail-item">
+          <dt>Email</dt>
+          <dd>{{ employee.email }}</dd>
+        </div>
+        <div class="detail-item">
+          <dt>Group</dt>
+          <dd>{{ employee.group }}</dd>
+        </div>
+        <div class="detail-item">
+          <dt>Birth Date</dt>
+          <dd>{{ formatDate(employee.birthDate) }}</dd>
+        </div>
+        <div class="detail-item">
+          <dt>Basic Salary</dt>
+          <dd class="detail-item__salary">{{ formatCurrency(employee.basicSalary) }}</dd>
+        </div>
+        <div class="detail-item detail-item--full">
+          <dt>Description</dt>
+          <dd>{{ formatDateTime(employee.description) }}</dd>
+        </div>
+      </dl>
+
+      <div class="detail-actions">
+        <button class="btn btn--primary" (click)="goBack()">OK</button>
+      </div>
+    </div>
+  } @else {
+    <div class="detail-card">
+      <p>Employee not found.</p>
+      <button class="btn btn--primary" (click)="goBack()">Back to Employee List</button>
+    </div>
+  }
+</div>

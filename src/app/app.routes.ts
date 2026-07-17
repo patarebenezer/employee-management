@@ -16,5 +16,21 @@ export const routes: Routes = [
         (m) => m.EmployeeListComponent,
       ),
   },
+  {
+    path: 'employees/add',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/employee-add/employee-add.component').then(
+        (m) => m.EmployeeAddComponent,
+      ),
+  },
+  {
+    path: 'employees/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/employee-detail/employee-detail.component').then(
+        (m) => m.EmployeeDetailComponent,
+      ),
+  },
   { path: '**', redirectTo: 'login' },
 ];

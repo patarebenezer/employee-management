@@ -1,0 +1,92 @@
+.sselect {
+  position: relative;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.sselect__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #d5d9e0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  color: #1f2430;
+}
+
+.sselect__trigger:hover {
+  border-color: #6c63ff;
+}
+
+.sselect--open .sselect__trigger {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.sselect--disabled .sselect__trigger {
+  background: #f2f3f6;
+  cursor: not-allowed;
+}
+
+.sselect__placeholder {
+  color: #8b90a0;
+}
+
+.sselect__caret {
+  color: #8b90a0;
+  margin-left: 0.5rem;
+}
+
+.sselect__panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #d5d9e0;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.sselect__search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  border-bottom: 1px solid #eceef2;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.sselect__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.sselect__option {
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+}
+
+.sselect__option:hover {
+  background: #f2f1ff;
+}
+
+.sselect__option--active {
+  background: #ece9ff;
+  font-weight: 600;
+}
+
+.sselect__empty {
+  padding: 0.6rem 0.8rem;
+  color: #8b90a0;
+}

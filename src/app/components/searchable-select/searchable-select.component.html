@@ -1,0 +1,33 @@
+<div class="sselect" [class.sselect--open]="isOpen" [class.sselect--disabled]="disabled">
+  <button type="button" class="sselect__trigger" (click)="toggleOpen()">
+    <span [class.sselect__placeholder]="!selectedValue">
+      {{ selectedValue || placeholder }}
+    </span>
+    <span class="sselect__caret">▾</span>
+  </button>
+
+  @if (isOpen) {
+    <div class="sselect__panel">
+      <input
+        type="text"
+        class="sselect__search"
+        placeholder="Search group..."
+        [(ngModel)]="filterText"
+        autocomplete="off"
+      />
+      <ul class="sselect__list">
+        @for (option of filteredOptions; track option) {
+          <li
+            class="sselect__option"
+            [class.sselect__option--active]="option === selectedValue"
+            (click)="selectOption(option)"
+          >
+            {{ option }}
+          </li>
+        } @empty {
+          <li class="sselect__empty">No matches</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
