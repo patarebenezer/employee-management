@@ -1,0 +1,102 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <h1>Add Employee</h1>
+      <p>All fields are required.</p>
+    </div>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="form-card" novalidate>
+    <div class="form-grid">
+      <div class="field">
+        <label for="username">Username *</label>
+        <input id="username" type="text" formControlName="username" placeholder="e.g. john.doe" />
+        @if (f.username.invalid && f.username.touched) {
+          <span class="field__error">Username is required (min 3 characters).</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="firstName">First Name *</label>
+        <input id="firstName" type="text" formControlName="firstName" placeholder="e.g. John" />
+        @if (f.firstName.invalid && f.firstName.touched) {
+          <span class="field__error">First name is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="lastName">Last Name *</label>
+        <input id="lastName" type="text" formControlName="lastName" placeholder="e.g. Doe" />
+        @if (f.lastName.invalid && f.lastName.touched) {
+          <span class="field__error">Last name is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email *</label>
+        <input id="email" type="email" formControlName="email" placeholder="e.g. john.doe@company.com" />
+        @if (f.email.invalid && f.email.touched) {
+          <span class="field__error">
+            {{ f.email.errors?.['required'] ? 'Email is required.' : 'Enter a valid email address.' }}
+          </span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="birthDate">Birth Date *</label>
+        <input id="birthDate" type="date" formControlName="birthDate" [max]="today" />
+        @if (f.birthDate.invalid && f.birthDate.touched) {
+          <span class="field__error">
+            {{ f.birthDate.errors?.['required'] ? 'Birth date is required.' : 'Birth date cannot be later than today.' }}
+          </span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="basicSalary">Basic Salary (Rp) *</label>
+        <input id="basicSalary" type="number" formControlName="basicSalary" placeholder="e.g. 5000000" min="1" step="0.01" />
+        @if (f.basicSalary.invalid && f.basicSalary.touched) {
+          <span class="field__error">Basic salary is required and must be a positive number.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="status">Status *</label>
+        <select id="status" formControlName="status">
+          <option value="" disabled>Select status</option>
+          @for (s of statusOptions; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+        @if (f.status.invalid && f.status.touched) {
+          <span class="field__error">Status is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="group">Group *</label>
+        <app-searchable-select
+          [options]="groupOptions"
+          placeholder="Select group"
+          formControlName="group"
+        ></app-searchable-select>
+        @if (f.group.invalid && f.group.touched) {
+          <span class="field__error">Group is required.</span>
+        }
+      </div>
+
+      <div class="field field--full">
+        <label for="description">Description *</label>
+        <input id="description" type="datetime-local" formControlName="description" />
+        @if (f.description.invalid && f.description.touched) {
+          <span class="field__error">Description is required.</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn--ghost" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn--primary">Save</button>
+    </div>
+  </form>
+</div>
