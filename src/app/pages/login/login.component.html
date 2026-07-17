@@ -1,0 +1,52 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-card__brand">
+      <div class="login-card__logo">EM</div>
+      <h1>Employee Management</h1>
+      <p>Sign in to manage your workforce</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="login-form" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter username"
+          autocomplete="username"
+        />
+        @if (form.controls.username.invalid && form.controls.username.touched) {
+          <span class="field__error">Username is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="password-input">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Enter password"
+            autocomplete="current-password"
+          />
+          <button type="button" class="password-toggle" (click)="togglePassword()">
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+        @if (form.controls.password.invalid && form.controls.password.touched) {
+          <span class="field__error">Password is required.</span>
+        }
+      </div>
+
+      @if (errorMessage) {
+        <div class="login-error">{{ errorMessage }}</div>
+      }
+
+      <button type="submit" class="btn btn--primary btn--block">Login</button>
+
+      <p class="login-hint">Hint: admin / admin123</p>
+    </form>
+  </div>
+</div>

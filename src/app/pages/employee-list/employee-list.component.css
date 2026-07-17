@@ -1,0 +1,244 @@
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1rem;
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filters__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.filters__field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #656b7a;
+}
+
+.filters__field input,
+.filters__field select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d5d9e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.filters__field input:focus,
+.filters__field select:focus {
+  border-color: #6c63ff;
+}
+
+.filters__field--small {
+  min-width: 140px;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.employee-table thead th {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  background: #f7f7fb;
+  color: #656b7a;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.employee-table thead th:hover {
+  color: #4b3fd6;
+}
+
+.employee-table .sort-icon {
+  opacity: 0.6;
+  margin-left: 0.2rem;
+}
+
+.employee-table tbody tr {
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.employee-table tbody tr:hover {
+  background: #f7f7fb;
+}
+
+.employee-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #eceef2;
+}
+
+.employee-table td {
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  color: #1f2430;
+  white-space: nowrap;
+}
+
+.employee-table .empty-row {
+  text-align: center;
+  padding: 2rem;
+  color: #8b90a0;
+}
+
+.actions-col {
+  white-space: nowrap;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #eceef2;
+  color: #4b5163;
+}
+
+.status-badge[data-status="Active"] {
+  background: #e6f7ec;
+  color: #2e7d32;
+}
+
+.status-badge[data-status="Inactive"] {
+  background: #f0f0f3;
+  color: #656b7a;
+}
+
+.status-badge[data-status="Probation"] {
+  background: #fff4dd;
+  color: #b5750a;
+}
+
+.status-badge[data-status="Resigned"] {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.icon-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 0.4rem;
+}
+
+.icon-btn--edit {
+  background: #fff4dd;
+  color: #b5750a;
+}
+
+.icon-btn--edit:hover {
+  background: #ffe6ad;
+}
+
+.icon-btn--delete {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.icon-btn--delete:hover {
+  background: #f9d4d1;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  justify-content: center;
+}
+
+.page-btn {
+  border: 1px solid #d5d9e0;
+  background: #fff;
+  border-radius: 8px;
+  min-width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #1f2430;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #6c63ff;
+  color: #4b3fd6;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-btn--active {
+  background: #6c63ff;
+  border-color: #6c63ff;
+  color: #fff;
+}
+
+/* Responsive: convert table rows into stacked cards on small screens */
+@media (max-width: 720px) {
+  .employee-table {
+    min-width: 0;
+  }
+
+  .employee-table thead {
+    display: none;
+  }
+
+  .employee-table tbody tr {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 8px solid #f7f7fb;
+  }
+
+  .employee-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    white-space: normal;
+    padding: 0.45rem 0;
+    border: none;
+    text-align: right;
+  }
+
+  .employee-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #656b7a;
+    text-align: left;
+    font-size: 0.78rem;
+  }
+
+  .employee-table .actions-col {
+    justify-content: flex-end;
+  }
+}
