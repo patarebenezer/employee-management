@@ -1,0 +1,96 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <h1>Employee List</h1>
+      <p>{{ totalItems }} employee(s) found</p>
+    </div>
+    <div class="page-header__actions">
+      <button class="btn btn--primary" (click)="goToAdd()">+ Add Employee</button>
+      <button class="btn btn--ghost" (click)="logout()">Logout</button>
+    </div>
+  </header>
+
+  <section class="filters">
+    <div class="filters__field">
+      <label>Search by name / username</label>
+      <input
+        type="text"
+        [(ngModel)]="nameSearch"
+        (ngModelChange)="onSearchChange()"
+        placeholder="e.g. Andi Pratama"
+      />
+    </div>
+    <div class="filters__field">
+      <label>Search by group</label>
+      <input
+        type="text"
+        [(ngModel)]="groupSearch"
+        (ngModelChange)="onSearchChange()"
+        placeholder="e.g. Engineering"
+        list="group-options"
+      />
+      <datalist id="group-options">
+        @for (g of groupOptions; track g) {
+          <option [value]="g"></option>
+        }
+      </datalist>
+    </div>
+    <div class="filters__field filters__field--small">
+      <label>Rows per page</label>
+      <select [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+        @for (size of pageSizeOptions; track size) {
+          <option [value]="size">{{ size }}</option>
+        }
+      </select>
+    </div>
+  </section>
+
+  <div class="table-wrapper">
+    <table class="employee-table">
+      <thead>
+        <tr>
+          @for (col of columns; track col.field) {
+            <th (click)="sortBy(col.field)">
+              {{ col.label }}
+              <span class="sort-icon">{{ sortIcon(col.field) }}</span>
+            </th>
+          }
+          <th class="actions-col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of pagedEmployees; track emp.id) {
+          <tr (click)="goToDetail(emp)">
+            <td data-label="Username">{{ emp.username }}</td>
+            <td data-label="First Name">{{ emp.firstName }}</td>
+            <td data-label="Last Name">{{ emp.lastName }}</td>
+            <td data-label="Email">{{ emp.email }}</td>
+            <td data-label="Group">{{ emp.group }}</td>
+            <td data-label="Status">
+              <span class="status-badge" [attr.data-status]="emp.status">{{ emp.status }}</span>
+            </td>
+            <td data-label="Basic Salary">{{ formatCurrency(emp.basicSalary) }}</td>
+            <td data-label="Action" class="actions-col">
+              <button class="icon-btn icon-btn--edit" (click)="onEdit(emp, $event)" title="Edit">Edit</button>
+              <button class="icon-btn icon-btn--delete" (click)="onDelete(emp, $event)" title="Delete">Delete</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td [attr.colspan]="columns.length + 1" class="empty-row">No employees match your search.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (totalPages > 1) {
+    <nav class="pagination">
+      <button class="page-btn" (click)="goToPage(page - 1)" [disabled]="page === 1">Prev</button>
+      @for (p of pageNumbers; track p) {
+        <button class="page-btn" [class.page-btn--active]="p === page" (click)="goToPage(p)">{{ p }}</button>
+      }
+      <button class="page-btn" (click)="goToPage(page + 1)" [disabled]="page === totalPages">Next</button>
+    </nav>
+  }
+</div>
