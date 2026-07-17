@@ -1,27 +1,101 @@
-# EmployeeManagement
+# Employee Management — Frontend Technical Assessment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+A responsive Employee Management mini project built with **Angular 18** (standalone components), created for
+the "Technical Assessment Backoffice - Frontend" test.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Login Page** — functional login using hard-coded credentials, with client-side validation and
+  navigation to the Employee List on success.
+- **Employee List Page**
+  - 100 dummy employee records generated in-memory on app start.
+  - Client-side **paging** with a configurable page size (5 / 10 / 20 / 50 rows).
+  - Column **sorting** (click any column header to toggle ascending/descending).
+  - **Searching** by two parameters combined with an **AND** rule: name/username AND group.
+  - "Add Employee" button navigating to the Add Employee page.
+  - Row-level **Edit** (yellow) and **Delete** (red) action buttons that trigger color-coded toast
+    notifications (per the assessment spec, these are dummy actions — Delete additionally removes the
+    row from the in-memory list for visual feedback, Edit does not mutate data).
+  - Responsive layout: table on desktop, stacked cards on small screens.
+- **Add Employee Page**
+  - Form covering every `Employee` attribute from the spec; all fields are mandatory and the Save button
+    is blocked until the form is valid.
+  - Birth date uses a native date picker constrained to not exceed today.
+  - Email format validation.
+  - Basic salary restricted to numeric input.
+  - Group is a searchable dropdown pre-filled with 10 dummy group names.
+  - Save persists the new employee (shown at the top of the list) and Cancel returns to the list
+    without saving.
+- **Employee Detail Page**
+  - Displays a single employee's data with formatted output (e.g. `basicSalary` shown as
+    `Rp. xx.xxx,xx`).
+  - "OK" button returns to the Employee List, and the previous search/sort/page state is preserved
+    (kept in an in-memory `ListStateService`, not the URL).
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 18 (standalone components, functional router guards, new `@if` / `@for` control flow)
+- TypeScript, SCSS
+- No backend / HTTP calls — all data (employees, groups) is generated and stored in memory via
+  Angular services (`EmployeeService`), so a page refresh resets data to the original 100 dummy rows.
 
-## Build
+## Project Structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+src/app/
+  models/              Employee interface & shared types
+  services/            EmployeeService (dummy data + CRUD), AuthService, ToastService, ListStateService
+  guards/               authGuard (route protection)
+  components/           Reusable UI: ToastComponent, SearchableSelectComponent
+  pages/
+    login/               Login Page
+    employee-list/       Employee List Page
+    employee-add/        Add Employee Page
+    employee-detail/     Employee Detail Page
+```
 
-## Running unit tests
+## Login Credentials
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Since the spec allows hard-coded login data:
 
-## Running end-to-end tests
+```
+Username: admin
+Password: admin123
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Environment
 
-## Further help
+- Node.js **18.x, 20.x, or 22.x** (Angular CLI 18 requirement)
+- npm **9+**
+- Angular CLI 18 (installed as a local devDependency — no global install required)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## How to Run
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm start
+   ```
+   (equivalent to `ng serve`)
+3. Open your browser at:
+   ```
+   http://localhost:4200
+   ```
+4. Log in with the credentials above.
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+Build artifacts are output to `dist/employee-management/`.
+
+## Notes
+
+- All data is dummy/in-memory per the assessment spec — there is no backend API.
+- The `description` field is implemented as a `datetime-local` input to match the attribute type
+  (`datetime`) given in the spec's Employee data schema.
