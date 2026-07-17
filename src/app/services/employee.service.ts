@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Employee } from '../models/employee.model';
+import { Employee } from '@models/employee.model';
 
 export const GROUP_OPTIONS: string[] = [
   'Engineering',
@@ -11,21 +11,70 @@ export const GROUP_OPTIONS: string[] = [
   'Product Management',
   'Legal',
   'Operations',
-  'Quality Assurance'
+  'Quality Assurance',
 ];
 
-export const STATUS_OPTIONS: string[] = ['Active', 'Inactive', 'Probation', 'Resigned'];
+export const STATUS_OPTIONS: string[] = [
+  'Active',
+  'Inactive',
+  'Probation',
+  'Resigned',
+];
 
 const FIRST_NAMES = [
-  'Andi', 'Budi', 'Citra', 'Dewi', 'Eka', 'Fajar', 'Gita', 'Hadi', 'Indra', 'Joko',
-  'Kartika', 'Lestari', 'Made', 'Nadia', 'Oki', 'Putri', 'Rangga', 'Sari', 'Taufik', 'Umi',
-  'Vina', 'Wahyu', 'Yudi', 'Zahra', 'Agus', 'Bayu', 'Chandra', 'Diana', 'Erik', 'Fitri'
+  'Andi',
+  'Budi',
+  'Citra',
+  'Dewi',
+  'Eka',
+  'Fajar',
+  'Gita',
+  'Hadi',
+  'Indra',
+  'Joko',
+  'Kartika',
+  'Lestari',
+  'Made',
+  'Nadia',
+  'Oki',
+  'Putri',
+  'Rangga',
+  'Sari',
+  'Taufik',
+  'Umi',
+  'Vina',
+  'Wahyu',
+  'Yudi',
+  'Zahra',
+  'Agus',
+  'Bayu',
+  'Chandra',
+  'Diana',
+  'Erik',
+  'Fitri',
 ];
 
 const LAST_NAMES = [
-  'Pratama', 'Wijaya', 'Santoso', 'Kusuma', 'Saputra', 'Hidayat', 'Setiawan', 'Halim',
-  'Nugroho', 'Suryanto', 'Firmansyah', 'Ramadhan', 'Utami', 'Wardani', 'Susanto',
-  'Gunawan', 'Permata', 'Handayani', 'Cahyono', 'Iskandar'
+  'Pratama',
+  'Wijaya',
+  'Santoso',
+  'Kusuma',
+  'Saputra',
+  'Hidayat',
+  'Setiawan',
+  'Halim',
+  'Nugroho',
+  'Suryanto',
+  'Firmansyah',
+  'Ramadhan',
+  'Utami',
+  'Wardani',
+  'Susanto',
+  'Gunawan',
+  'Permata',
+  'Handayani',
+  'Cahyono',
+  'Iskandar',
 ];
 
 @Injectable({ providedIn: 'root' })
@@ -60,7 +109,7 @@ export class EmployeeService {
         basicSalary: 4000000 + ((i * 137) % 46) * 100000,
         status,
         group,
-        description
+        description,
       });
     }
     return list;

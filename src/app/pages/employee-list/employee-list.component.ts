@@ -2,18 +2,18 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Employee, SortDirection } from '../../models/employee.model';
-import { EmployeeService, GROUP_OPTIONS } from '../../services/employee.service';
-import { AuthService } from '../../services/auth.service';
-import { ToastService } from '../../services/toast.service';
-import { ListStateService } from '../../services/list-state.service';
+import { Employee, SortDirection } from '@models/employee.model';
+import { EmployeeService, GROUP_OPTIONS } from '@services/employee.service';
+import { AuthService } from '@services/auth.service';
+import { ToastService } from '@services/toast.service';
+import { ListStateService } from '@services/list-state.service';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.scss'
+  styleUrl: './employee-list.component.scss',
 })
 export class EmployeeListComponent implements OnInit {
   private employeeService = inject(EmployeeService);
@@ -41,7 +41,7 @@ export class EmployeeListComponent implements OnInit {
     { field: 'email', label: 'Email' },
     { field: 'group', label: 'Group' },
     { field: 'status', label: 'Status' },
-    { field: 'basicSalary', label: 'Basic Salary' }
+    { field: 'basicSalary', label: 'Basic Salary' },
   ];
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class EmployeeListComponent implements OnInit {
       page: this.page,
       pageSize: this.pageSize,
       sortField: this.sortField as string,
-      sortDirection: this.sortDirection
+      sortDirection: this.sortDirection,
     });
   }
 
@@ -74,7 +74,10 @@ export class EmployeeListComponent implements OnInit {
     // AND rule: an employee must match ALL provided search parameters.
     let result = this.allEmployees.filter((e) => {
       const fullName = `${e.firstName} ${e.lastName}`.toLowerCase();
-      const matchesName = !name || fullName.includes(name) || e.username.toLowerCase().includes(name);
+      const matchesName =
+        !name ||
+        fullName.includes(name) ||
+        e.username.toLowerCase().includes(name);
       const matchesGroup = !group || e.group.toLowerCase().includes(group);
       return matchesName && matchesGroup;
     });
@@ -155,7 +158,10 @@ export class EmployeeListComponent implements OnInit {
 
   onEdit(employee: Employee, event: Event): void {
     event.stopPropagation();
-    this.toastService.show(`Edit action triggered for ${employee.firstName} ${employee.lastName}`, 'edit');
+    this.toastService.show(
+      `Edit action triggered for ${employee.firstName} ${employee.lastName}`,
+      'edit',
+    );
   }
 
   onDelete(employee: Employee, event: Event): void {
@@ -166,11 +172,20 @@ export class EmployeeListComponent implements OnInit {
       this.page = this.totalPages;
       this.persistState();
     }
-    this.toastService.show(`Delete action triggered for ${employee.firstName} ${employee.lastName}`, 'delete');
+    this.toastService.show(
+      `Delete action triggered for ${employee.firstName} ${employee.lastName}`,
+      'delete',
+    );
   }
 
   formatCurrency(value: number): string {
-    return 'Rp. ' + value.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return (
+      'Rp. ' +
+      value.toLocaleString('id-ID', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
   }
 
   logout(): void {
