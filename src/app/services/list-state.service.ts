@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SortDirection } from '../models/employee.model';
+import { SortDirection } from '@models/employee.model';
 
 export interface EmployeeListState {
   nameSearch: string;
@@ -16,13 +16,9 @@ const DEFAULT_STATE: EmployeeListState = {
   page: 1,
   pageSize: 10,
   sortField: '',
-  sortDirection: 'asc'
+  sortDirection: 'asc',
 };
 
-/**
- * Holds the Employee List page's search/paging/sorting state in memory so that
- * navigating away (e.g. to Employee Detail) and back preserves the previous search.
- */
 @Injectable({ providedIn: 'root' })
 export class ListStateService {
   private state: EmployeeListState = { ...DEFAULT_STATE };

@@ -4,11 +4,11 @@ export interface Employee {
   firstName: string;
   lastName: string;
   email: string;
-  birthDate: string; // ISO date string (yyyy-MM-dd)
+  birthDate: string;
   basicSalary: number;
   status: string;
   group: string;
-  description: string; // ISO datetime string, per spec attribute type "datetime"
+  description: string;
 }
 
 export type SortDirection = 'asc' | 'desc';

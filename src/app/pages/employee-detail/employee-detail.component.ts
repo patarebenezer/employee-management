@@ -1,15 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from '../../models/employee.model';
-import { EmployeeService } from '../../services/employee.service';
+import { Employee } from '@models/employee.model';
+import { EmployeeService } from '@services/employee.service';
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './employee-detail.component.html',
-  styleUrl: './employee-detail.component.scss'
+  styleUrl: './employee-detail.component.scss',
 })
 export class EmployeeDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -24,13 +24,23 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   formatCurrency(value: number): string {
-    return 'Rp. ' + value.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return (
+      'Rp. ' +
+      value.toLocaleString('id-ID', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
   }
 
   formatDate(value: string): string {
     if (!value) return '-';
     const date = new Date(value);
-    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
   }
 
   formatDateTime(value: string): string {
@@ -41,7 +51,7 @@ export class EmployeeDetailComponent implements OnInit {
       month: 'long',
       year: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   }
 

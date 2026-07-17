@@ -2,16 +2,20 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmployeeService, GROUP_OPTIONS, STATUS_OPTIONS } from '../../services/employee.service';
-import { ToastService } from '../../services/toast.service';
-import { SearchableSelectComponent } from '../../components/searchable-select/searchable-select.component';
+import {
+  EmployeeService,
+  GROUP_OPTIONS,
+  STATUS_OPTIONS,
+} from '@services/employee.service';
+import { ToastService } from '@services/toast.service';
+import { SearchableSelectComponent } from '@components/searchable-select/searchable-select.component';
 
 @Component({
   selector: 'app-employee-add',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, SearchableSelectComponent],
   templateUrl: './employee-add.component.html',
-  styleUrl: './employee-add.component.scss'
+  styleUrl: './employee-add.component.scss',
 })
 export class EmployeeAddComponent {
   private fb = inject(FormBuilder);
@@ -28,11 +32,17 @@ export class EmployeeAddComponent {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    birthDate: ['', [Validators.required, this.notInFutureValidator.bind(this)]],
-    basicSalary: [null as number | null, [Validators.required, Validators.min(1)]],
+    birthDate: [
+      '',
+      [Validators.required, this.notInFutureValidator.bind(this)],
+    ],
+    basicSalary: [
+      null as number | null,
+      [Validators.required, Validators.min(1)],
+    ],
     status: ['', [Validators.required]],
     group: ['', [Validators.required]],
-    description: ['', [Validators.required]]
+    description: ['', [Validators.required]],
   });
 
   private notInFutureValidator(control: { value: string }) {
@@ -50,7 +60,10 @@ export class EmployeeAddComponent {
   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.toastService.show('Please complete all required fields correctly.', 'error');
+      this.toastService.show(
+        'Please complete all required fields correctly.',
+        'error',
+      );
       return;
     }
 
@@ -64,10 +77,13 @@ export class EmployeeAddComponent {
       basicSalary: Number(raw.basicSalary),
       status: raw.status,
       group: raw.group,
-      description: raw.description
+      description: raw.description,
     });
 
-    this.toastService.show(`Employee "${raw.firstName} ${raw.lastName}" added successfully.`, 'success');
+    this.toastService.show(
+      `Employee "${raw.firstName} ${raw.lastName}" added successfully.`,
+      'success',
+    );
     this.router.navigate(['/employees']);
   }
 
